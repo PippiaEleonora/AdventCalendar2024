@@ -35,6 +35,10 @@ for r in reports:
         
 print(safeReport)
 
+#First star variant
+safeReport = list(filter(safetyReport, reports))
+print(len(safeReport))
+
 #Second star
 safeReport = 0
 for r in reports:
