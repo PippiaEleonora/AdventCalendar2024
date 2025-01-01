@@ -106,6 +106,7 @@ while len(Queue)>0:
 
                         ## Not my code ##
                         if op[1][0] == "z" and op[0] != "XOR" and op[1] != 'z45':
+                            # XOR is the bitwise "add" without carry, if we do not have a XOR operation on "z" this is wrong
                             wrong.add(op[1])
                         if (
                                 op[0] == "XOR"
@@ -113,14 +114,17 @@ while len(Queue)>0:
                                 and arg[0] not in ["x", "y", "z"]
                                 and k[0] not in ["x", "y", "z"]
                         ):
+                            # XOR is the bitwise "add" without carry, should involve just x,y,z variables
                             wrong.add(op[1])
                         if op[0] == "AND" and "x00" not in [arg, k]:
+                            # AND takes the carry and should be followed by an OR to output the result or store the new carry
                             for subarg in list(Operations.keys()):
                                 for subk in list(Operations[subarg].keys()):
                                     for subop in Operations[subarg][subk]:
                                         if (op[1] == subarg or op[1] == subk) and subop[0] != "OR":
                                             wrong.add(op[1])
                         if op[0] == "XOR":
+                            # XOR is the bitwise "add" without carry, and OR should be use for carry
                             for subarg in list(Operations.keys()):
                                 for subk in list(Operations[subarg].keys()):
                                     for subop in Operations[subarg][subk]:
